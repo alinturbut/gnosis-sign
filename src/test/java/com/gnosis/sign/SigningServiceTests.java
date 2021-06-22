@@ -2,13 +2,13 @@ package com.gnosis.sign;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.web3j.crypto.Credentials;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SigningServiceUnitTest {
+public class SigningServiceTests {
 
     @Test
     public void test_contract_hash_signing() {
