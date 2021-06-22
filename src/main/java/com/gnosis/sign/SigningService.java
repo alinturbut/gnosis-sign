@@ -4,7 +4,6 @@ import static org.web3j.crypto.Sign.recoverFromSignature;
 
 import java.math.BigInteger;
 import java.security.SignatureException;
-import lombok.extern.slf4j.Slf4j;
 import org.web3j.crypto.ECDSASignature;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Hash;
@@ -12,8 +11,9 @@ import org.web3j.crypto.Keys;
 import org.web3j.crypto.Sign;
 import org.web3j.utils.Numeric;
 
-@Slf4j
 public class SigningService {
+    
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(SigningService.class);
 
     /**
      * Function used to sign a hashed string message using an {@link ECKeyPair} predefined. Returns r + s + v of a signature.
@@ -21,6 +21,7 @@ public class SigningService {
     public static String signHash(String hash, ECKeyPair ecKeyPair) {
         try {
             byte[] hexMessage = Numeric.hexStringToByteArray(hash);
+            log.info("Hex message to sign: {}", Numeric.toHexString(hexMessage));
 
             Sign.SignatureData signature = Sign.signPrefixedMessage(hexMessage, ecKeyPair);
 
@@ -38,7 +39,7 @@ public class SigningService {
             log.info("Signer address: {}", signerAddress);
 
             String hexSignature = Numeric.toHexString(retval);
-            log.debug("Signature: {}", hexSignature);
+            log.info("Signature: {}", hexSignature);
 
             return hexSignature;
         } catch (SignatureException ex) {
